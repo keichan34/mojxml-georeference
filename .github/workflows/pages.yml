@@ -59,7 +59,7 @@ jobs:
           pnpm run build
 
           cd ./dist/assets
-          rename -X -e 's/((gdal|loam-worker)-).*/$2/' *
+          rename -e 's/((gdal|loam-worker)-).*?(\.(js|wasm|data))/$2$3/' *
           cd ../..
 
           cp -r ./dist/* ../../dist/tools/create-georeference
