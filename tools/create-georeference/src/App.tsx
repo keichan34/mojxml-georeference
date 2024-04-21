@@ -118,7 +118,10 @@ function App() {
       const ogr2ogrcmd = ogr2ogrArgs.join(' ');
       ogr2ogrFlagsRef.current!.value = ogr2ogrcmd;
       console.log('ogr2ogrArgs', ogr2ogrcmd);
-      const vectorDataset = await dataset.vectorConvert(ogr2ogrArgs);
+      const vectorDataset = await dataset.vectorConvert([
+        '-f', 'GeoJSON',
+        ...ogr2ogrArgs,
+      ]);
       const outBytes = await vectorDataset.bytes();
       const geojson = JSON.parse(new TextDecoder().decode(outBytes)) as GeoJSON.FeatureCollection;
       console.log('done reprojecting file', geojson);
