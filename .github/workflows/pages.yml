@@ -55,7 +55,12 @@ jobs:
           cd ./tools/create-georeference
           pnpm run build
 
-          cp -r ./dist ../../dist/tools/create-georeference
+          cd ./dist/assets
+          rename -X -e 's/((gdal|loam-worker)-).*/$2/' *
+          cd ../..
+
+          cp -r ./dist/* ../../dist/tools/create-georeference
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
